@@ -17,7 +17,7 @@ app = Flask(__name__)
 
 # Need to use Flask sessioning features
 
-app.secret_key = 'this-should-be-something-unguessable'
+app.secret_key = 'ubermelon_secret_key'
 
 # Normally, if you refer to an undefined variable in a Jinja template,
 # Jinja silently ignores this. This makes debugging difficult, so we'll
@@ -50,7 +50,7 @@ def show_melon(melon_id):
     Show all info about a melon. Also, provide a button to buy that melon.
     """
 
-    melon = melons.get_by_id(59)
+    melon = melons.get_by_id(melon_id)
     print melon
     return render_template("melon_details.html",
                            display_melon=melon)
@@ -82,6 +82,8 @@ def add_to_cart(id):
     page and display a confirmation message: 'Successfully added to cart'.
     """
 
+    melon = melons.get_by_id(melon_id)
+    session[id] = melon[id]
     # TODO: Finish shopping cart functionality
 
     # The logic here should be something like:
